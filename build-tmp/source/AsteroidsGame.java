@@ -17,16 +17,20 @@ public class AsteroidsGame extends PApplet {
 //your variable declarations here
 SpaceShip cool_ship;
 Star [] superstar;
+Asteroids [] starburst;
 public void setup() 
 {
   //your code here
-  size(400,400);
+  size(500,500);
    cool_ship = new SpaceShip();
+   starburst = new Asteroids[5];
+   superstar = new Star[15];
 
-   superstar = new Star[10];
-
-   for(int i = 0; i<superstar.length;i++){
+   for(int i = 0; i < superstar.length;i++){
     superstar[i] = new Star();
+   }
+   for(int i = 0; i < starburst.length; i++){
+    starburst[i] = new Asteroids();
    }
    
 
@@ -39,7 +43,11 @@ public void draw()
   for(int i = 0; i < superstar.length; i++){
     superstar[i].shows();
   }
-  
+  for(int i = 0 ; i <starburst.length ; i++){
+     starburst[i].show();
+     starburst[i].move();
+  }
+ 
 
 }
 public void keyPressed(){
@@ -64,8 +72,8 @@ public void keyPressed(){
 }class Star{
   int myX, myY,randcolor1,randcolor2,randcolor3;
   public Star(){
-    myX = (int)(Math.random()*401);
-    myY = (int)(Math.random()*401);
+    myX = (int)(Math.random()*501);
+    myY = (int)(Math.random()*501);
     randcolor1 = (int)(Math.random()*401);
     randcolor2 = (int)(Math.random()*401);
     randcolor3 = (int)(Math.random()*401);
@@ -77,6 +85,64 @@ public void keyPressed(){
       ellipse(myX+15,myY,10,15+2);
       ellipse(myX-15,myY,10,15+2);
 
+    }
+
+}
+class Asteroids extends Floater{
+  protected int speedRotation;
+  protected int myColor2, myColor3;
+  Asteroids(){
+    corners = 4;
+    xCorners = new int[corners];
+    yCorners = new int[corners];
+    xCorners[0] = -20;
+    yCorners[0] = 20;
+    xCorners[1] = -20;
+    yCorners[1] = -20;
+    xCorners[2] = 20;
+    yCorners[2] = -20;
+    xCorners[3] = 20;
+    yCorners[3] = 20;
+
+    myCenterX = (int)(Math.random()*601);
+    myCenterY = (int)(Math.random()*601);
+    myDirectionX = (int)(Math.random()*11)-5;
+    myDirectionY = (int)(Math.random()*11)-5;
+    myColor = color(255,255,0);
+    myPointDirection = 0;
+    speedRotation = (int)(Math.random()*11)-5;
+  }
+   public void setX(int x){
+      myCenterX = x;
+    }public int getX(){
+      return (int)myCenterX;
+    }public void setY(int y){
+      myCenterY = y;
+    }public int getY(){
+      return (int)myCenterY;
+    }public void setDirectionX(double x){
+      myDirectionX = x;
+    }
+    public double getDirectionX(){
+      return myDirectionX;
+    } 
+    public void setDirectionY(double y){
+      myDirectionY = y;
+    }
+    public double getDirectionY(){
+      return myDirectionY;
+    }
+    public void setPointDirection(int degrees){
+      myPointDirection = degrees;
+    }
+    public double getPointDirection(){
+      return myPointDirection;
+
+    } public void move(){
+      //gets from the super class its move function 
+      super.move();
+      //it gets the rotate function and then you input in the speed rotation
+      rotate(speedRotation);
     }
 
 }
@@ -98,6 +164,7 @@ class SpaceShip extends Floater
       yCorners[3] = 0;
 
       myColor = 0;
+
       myCenterX = -4+100;
       myCenterY = 0+100;
       myDirectionX = 0;
