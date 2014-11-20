@@ -1,22 +1,37 @@
 //your variable declarations here
+
 SpaceShip cool_ship;
 Star [] superstar;
-Asteroids [] starburst;
+//Asteroids [] starburst;
+ArrayList <Asteroids> starbursts;
+int collect;
+int someTime = 0;
+//int time
 public void setup() 
 {
   //your code here
   size(500,500);
    cool_ship = new SpaceShip();
-   starburst = new Asteroids[5];
+  // starburst = new Asteroids[5];
    superstar = new Star[15];
-
+   starbursts = new ArrayList <Asteroids>();
+   //Asteroids someStarbursts = new Asteroids();
+   
    for(int i = 0; i < superstar.length;i++){
     superstar[i] = new Star();
    }
-   for(int i = 0; i < starburst.length; i++){
-    starburst[i] = new Asteroids();
+   for(int i = 0; i < 10;i++){
+    starbursts.add(new Asteroids());
+    collect = 10;
    }
+/*if(dist((float)starbursts.get(i).getDirectionX(),(float)starbursts.get(i).getDirectionY(),(float)cool_ship.getDirectionX(),(float)cool_ship.getDirectionY() ) < 20 ){
+      starbursts.remove(i);
+    }*/
    
+   /*for(int i = 0; i < starburst.length; i++){
+    starburst[i] = new Asteroids();
+   }*/
+ 
 
 }
 public void draw() 
@@ -27,12 +42,34 @@ public void draw()
   for(int i = 0; i < superstar.length; i++){
     superstar[i].shows();
   }
-  for(int i = 0 ; i <starburst.length ; i++){
+  for(int i = 0 ; i < starbursts.size() ; i++){
+     starbursts.get(i).show();
+     starbursts.get(i).move();
+     if(dist((float)starbursts.get(i).getX(),
+             (float)starbursts.get(i).getY(),
+             (float)cool_ship.getX(),
+             (float)cool_ship.getY() ) < 20){
+      starbursts.remove(i);
+      collect-=1;
+        
+    }
+    fill(0);
+    text("Starbursts: "+collect,418,460);
+   
+  }
+
+  someTime++;
+  //if()
+  /*for(int i = 0 ; i < starbursts.size() ; i++){
      starburst[i].show();
      starburst[i].move();
-  }
+  }*/
+ text("Time: "+someTime,45,460);
  
-
+ if(collect == 0){
+      fill(0);
+      text("YOU WON!",250,250);
+         } 
 }
 public void keyPressed(){
   //rotate left and rotate right accelerate hyperspace
@@ -190,7 +227,22 @@ class SpaceShip extends Floater
       myDirectionX = 0;
       myDirectionY = 0;
     }
-}
+}/*class Bullet extends Floater{
+  private double dRadians 
+  public Bullet(Spaceship theShip){
+    myCenterX = -4+100;
+    myCenterY = 100;
+    myPointDirection = 0;
+    dRadians =myPointDirection*(Math.PI/180);
+    myDirectionX = 5 * Math.cos(dRadians);
+    myDirectionY = 5 * Math.sin(dRadians);
+  }
+  public void show(){
+    ellipse(myDirectionX,myDirectionY,20,20);
+
+  }
+*/
+
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
 {   
   protected int corners;  //the number of corners, a triangular floater has 3   
