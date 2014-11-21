@@ -1,6 +1,7 @@
 
 body {
-    background-image: url(starbursteverything.jpg);
+    background: url(starbursteverything.jpg) no repeat center center fixed;
+    background-size:cover;
     color: rgb(255,255,255);
     font-family: "Open Sans", sans-serif;
     text-align: center;
